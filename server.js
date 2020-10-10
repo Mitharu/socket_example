@@ -20,10 +20,10 @@ const io = socketIO(server);
 io.on('connect',function(socket){
     console.log("Ada user yang konek : "+socket.id);
 
-    socket.on('pesan',function(data){
+    socket.on('pesan',function(pesan, date, jenis, foto){
         var sockets = io.sockets.sockets;
-        socket.broadcast.emit('pesan',data);
-    })    
+        socket.broadcast.emit('pesan',pesan, date, jenis, foto);
+    })   
 
     socket.on('disconnect',function(){
         console.log("User : "+socket.id+" Keluar");
