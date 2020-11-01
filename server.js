@@ -20,9 +20,10 @@ const io = socketIO(server);
 io.on('connect',function(socket){
     console.log("Ada user yang konek : "+socket.id);
 
-    socket.on('pesan',function(pesan, date, jenis, foto){
+    socket.on('pesan',function(id_room, status, pesan, date, jenis, foto){
         var sockets = io.sockets.sockets;
-        socket.broadcast.emit('pesan',pesan, date, jenis, foto);
+        socket.join(id_room);
+        io.to(id_room).emit('pesan',id_room, status,pesan, date, jenis, foto);
     })   
 
     socket.on('disconnect',function(){
